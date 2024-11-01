@@ -6,4 +6,4 @@ export const bodyToRestaurant = (body) => {
       address: body.address,
       currentRegion: body.currentRegion
     }
-  }
+  } 
