@@ -12,3 +12,36 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique(map: "email") @db.VarChar(20)
+  name          String   @map("username") @db.VarChar(10)
+  gender        String   @db.VarChar(10)
+  birth         DateTime @map("birthdate") @db.Date
+  address       String   @db.VarChar(30)
+  detailAddress String?  @map("detail_address") @db.VarChar(50)
+  phoneNumber   String   @map("phone_num") @db.VarChar(20) 
+
+  userFavorCategories UserFood[]
+
+  @@map("user")
+}
+
+model Food {
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(20)
+  genre    String    @db.VarChar(10)
+  userFavorCategories UserFood[]
+}
+
+model UserFood {
+  id             Int    @id @default(autoincrement())
+  userId         Int    @map("user_id")
+  foodId         Int    @map("food_id")
+
+  user         User         @relation(fields: [userId], references: [id])
+  food         Food         @relation(fields: [foodId], references: [id])
+
+  @@index([userId], map: "user_id")
+}
