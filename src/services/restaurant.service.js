@@ -11,7 +11,7 @@ export const addRestaurant = async (data) => {
     });
   }
 
-  export const listStoreReviews = async (restaurantId) => {
-    const reviews = await getAllStoreReviews(restaurantId);
-    return responseFromReviews(reviews);
-  };
+export const listStoreReviews = async (restaurantId, cursor = 0) => {
+  const reviews = await getAllStoreReviews(restaurantId,cursor);
+  return responseFromReviews(reviews);
+};
