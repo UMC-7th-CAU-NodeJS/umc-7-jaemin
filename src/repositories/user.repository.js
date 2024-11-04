@@ -1,4 +1,3 @@
-import { pool } from "../db.config.js";
 import { prisma } from '../db.config.js';
 
 // User 데이터 삽입

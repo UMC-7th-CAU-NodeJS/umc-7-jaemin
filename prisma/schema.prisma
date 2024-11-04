@@ -133,7 +133,7 @@ model UserRestaurant {
 
 model UserMission {
   id            Int            @id @default(autoincrement())
-  missionId     Int            @map("missin_id")
+  missionId     Int            @map("mission_id")
   userId        Int            @map("user_id")
   status        String         @db.VarChar(10)
   deadline      DateTime
