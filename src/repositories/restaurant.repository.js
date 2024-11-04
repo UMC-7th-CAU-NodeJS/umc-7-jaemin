@@ -1,25 +1,14 @@
-import { pool } from "../db.config.js";
-
+import { prisma } from '../db.config.js';
 
 export const createRestaurant = async (data) => {
-    const conn = await pool.getConnection();
-    try{
-      const [result] = await conn.query(
-        `INSERT INTO restaurant (name, type, address, current_region) VALUES (?, ?, ?, ?);` ,
-        [
-          data.name,
-          data.type,
-          data.address,
-          data.currentRegion
-        ]
-      );
-      return result.insertId;
-    } catch (err) {
-      throw new Error(
-        `오류가 발생했어요. 요청 파라미터를 확인해주세요. (${err})`
-      );
-    } finally {
-      conn.release();
+  const createdRestaurant = await prisma.restaurant.create({
+    data: {
+      name: data.name,
+      type: data.type,
+      address: data.address,
+      currentRegionId: data.currentRegion // Ensure that this maps correctly to a foreign key if applicable
     }
-  };
+  });
+  return createdRestaurant.id;
+};
   

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,67 +8,163 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique(map: "email") @db.VarChar(20)
-  name          String   @map("username") @db.VarChar(10)
-  gender        String   @db.VarChar(10)
-  birth         DateTime @map("birthdate") @db.Date
-  address       String   @db.VarChar(30)
-  detailAddress String?  @map("detail_address") @db.VarChar(50)
-  phoneNumber   String   @map("phone_num") @db.VarChar(20) 
+  id              Int             @id @default(autoincrement())
+  email           String          @unique @db.VarChar(20)
+  password        String          @db.VarChar(15)
+  nickname        String          @db.VarChar(10)
+  username        String          @db.VarChar(10)
+  gender          String          @db.VarChar(10)
+  birth           DateTime        @map("birthdate") @db.Date
+  address         String          @db.VarChar(30)
+  detailAddress   String          @map("detail_address") @db.VarChar(50)
+  phoneNumber     String          @map("phone_num") @db.VarChar(20)
+  preferences     String?          @db.VarChar(15)
+  score           Int
+  currentRegionId Int             @map("current_region")
+  status          String?          @db.VarChar(10)
+  inactiveDate    DateTime?        @map("inactive_date")
+  createdAt       DateTime        @map("created_at") @default(now()) @db.DateTime
+  updatedAt       DateTime        @map("updated_at") @db.DateTime
 
-  reviews       Review[] 
+  reviews         Review[]
   userFavorCategories UserFood[]
-
-  @@map("user")
+  userRestaurants UserRestaurant[]
+  userMissions    UserMission[]
+  inquiries       Inquiry[]
 }
 
 model Food {
   id       Int       @id @default(autoincrement())
   name     String    @db.VarChar(20)
   genre    String    @db.VarChar(10)
+  createdAt DateTime @map("created_at") @default(now()) @db.DateTime
+  updatedAt DateTime @map("updated_at") @db.DateTime
+
   userFavorCategories UserFood[]
+  foodRestaurants     FoodRestaurant[]
 }
 
 model UserFood {
-  id             Int    @id @default(autoincrement())
-  userId         Int    @map("user_id")
-  foodId         Int    @map("food_id")
+  id       Int    @id @default(autoincrement())
+  userId   Int    @map("user_id")
+  foodId   Int    @map("food_id")
+  createdAt DateTime @map("created_at") @default(now()) @db.DateTime
+  updatedAt DateTime @map("updated_at") @db.DateTime
 
-  user         User         @relation(fields: [userId], references: [id])
-  food         Food         @relation(fields: [foodId], references: [id])
-
-  @@index([userId], map: "user_id")
+  user     User    @relation(fields: [userId], references: [id])
+  food     Food    @relation(fields: [foodId], references: [id])
 }
 
 model Restaurant {
   id             Int               @id @default(autoincrement())
   name           String            @db.VarChar(20)
-  type           String
-  address        String
-  currentRegionId  Int       // 이 부분이 외래키로 지정되어야 합니다.
-  currentRegion    Region?    @relation(fields: [currentRegionId], references: [id]) // 여기에서 수정 필요
-  
-  reviews        Review[] 
+  ownerId        Int?              @map("owner_id")
+  type           String            @db.VarChar(10)
+  address        String            @db.VarChar(30)
+  currentRegionId  Int?            @map("current_region")
+  commentId      Int?              @map("comment_id")
+  createdAt      DateTime          @map("created_at") @default(now()) @db.DateTime
+  updatedAt      DateTime          @map("updated_at") @updatedAt @db.DateTime
+
+  owner          Owner?             @relation(fields: [ownerId], references: [id])
+  currentRegion  Region?            @relation(fields: [currentRegionId], references: [id])
+  reviews        Review[]
+  userRestaurants UserRestaurant[]
+  missions       Mission[]
+  foodRestaurants     FoodRestaurant[]
+}
+
+model Owner {
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(10)
+  createdAt DateTime   @map("created_at") @default(now()) @db.DateTime
+  updatedAt DateTime   @map("updated_at") @updatedAt @db.DateTime
+
+  restaurants Restaurant[]
+}
+
+model Review {
+  id            Int        @id @default(autoincrement())
+  userId        Int        @map("user_id")
+  restaurantId  Int        @map("restaurant_id")
+  rate          Int
+  content       String     @db.Text
+  image         Bytes?     @db.Blob
+  reply         String?    @db.Text
+  createdAt     DateTime   @map("created_at") @default(now()) @db.DateTime
+  updatedAt     DateTime   @map("updated_at") @updatedAt @db.DateTime
+
+  user          User       @relation(fields: [userId], references: [id])
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
 }
 
 model Region {
   id            Int            @id @default(autoincrement())
-  regionName    String         @map("region_name")
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  restaurants   Restaurant[]   // 이 필드가 Restaurant 모델과의 반대 관계를 정의
+  regionName    String         @map("region_name") @db.VarChar(15)
+  createdAt     DateTime       @map("created_at") @default(now()) @db.DateTime
+  updatedAt     DateTime       @map("updated_at") @updatedAt @db.DateTime
+  restaurants   Restaurant[]
+}
 
-  @@map("region")
-} 
+model Mission {
+  id            Int            @id @default(autoincrement())
+  restaurantId  Int            @map("restaurant_id")
+  description   String         @db.Text
+  score         Int
+  createdAt     DateTime       @map("created_at") @default(now()) @db.DateTime
+  updatedAt     DateTime       @map("updated_at") @updatedAt @db.DateTime
 
-model Review {
-  id            Int        @id @default(autoincrement())
-  content       String
-  userId        Int        @map("user_id")
-  restaurantId  Int        @map("restaurant_id")
+  restaurant    Restaurant     @relation(fields: [restaurantId], references: [id])
+  userMissions  UserMission[]
+}
 
+model UserRestaurant {
+  id            Int            @id @default(autoincrement())
+  userId        Int            @map("user_id")
+  restaurantId  Int            @map("restaurant_id")
+  visited       Boolean
+  visitedDate   DateTime?      @map("visited_date")
+  createdAt     DateTime       @map("created_at") @default(now()) @db.DateTime
+  updatedAt     DateTime       @map("updated_at") @updatedAt @db.DateTime
 
-  user          User       @relation(fields: [userId], references: [id])
-  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+  user          User           @relation(fields: [userId], references: [id])
+  restaurant    Restaurant     @relation(fields: [restaurantId], references: [id])
+}
+
+model UserMission {
+  id            Int            @id @default(autoincrement())
+  missionId     Int            @map("mission_id")
+  userId        Int            @map("user_id")
+  status        String         @db.VarChar(10)
+  deadline      DateTime
+  createdAt     DateTime       @map("created_at") @default(now()) @db.DateTime
+  updatedAt     DateTime       @map("updated_at") @updatedAt @db.DateTime
+
+  mission       Mission        @relation(fields: [missionId], references: [id])
+  user          User           @relation(fields: [userId], references: [id])
+}
+
+model FoodRestaurant {
+  id            Int            @id @default(autoincrement())
+  foodId        Int            @map("food_id")
+  restaurantId  Int            @map("restaurant_id")
+  createdAt     DateTime       @map("created_at") @default(now()) @db.DateTime
+  updatedAt     DateTime       @map("updated_at") @updatedAt @db.DateTime
+
+  food          Food           @relation(fields: [foodId], references: [id])
+  restaurant    Restaurant     @relation(fields: [restaurantId], references: [id])
+}
+
+model Inquiry {
+  id            Int            @id @default(autoincrement())
+  userId        Int            @map("user_id")
+  title         String         @db.VarChar(30)
+  type          String         @db.VarChar(10)
+  content       String         @db.Text
+  image         Bytes?         @db.Blob
+  reply         String?        @db.Text
+  createdAt     DateTime       @default(now()) @db.DateTime
+  updatedAt     DateTime       @updatedAt @db.DateTime
+
+  user          User           @relation(fields: [userId], references: [id])
 }
