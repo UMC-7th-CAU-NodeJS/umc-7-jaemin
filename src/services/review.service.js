@@ -1,4 +1,6 @@
 import { createReview, checkRestaurantExists } from '../repositories/review.repository.js';
+import { getAllUserReviews } from '../repositories/review.repository.js';
+import { responseFromReviews } from '../dtos/review.dto.js';
 
 export const addReview = async (data) => {
   const exists = await checkRestaurantExists(data.restaurantId);
@@ -12,4 +14,9 @@ export const addReview = async (data) => {
     content: data.content
   });
   
+};
+
+export const listUserReviews = async (userId, cursor = 0) => {
+  const reviews = await getAllUserReviews(userId,cursor);
+  return responseFromReviews(reviews);
 };
