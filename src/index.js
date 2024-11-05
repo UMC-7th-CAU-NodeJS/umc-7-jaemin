@@ -7,7 +7,7 @@ import { handleAddReview } from "./controllers/review.controller.js";
 import { handleAddMission } from "./controllers/mission.controller.js";
 import { handleStartMission } from "./controllers/userMission.controller.js";
 import { handleListStoreReviews } from "./controllers/restaurant.controller.js";
-import { handleListUserReviews } from "./controllers/review.controller.js";
+import { handleListUserReviews } from "./controllers/user.controller.js";
 
 dotenv.config();
 
