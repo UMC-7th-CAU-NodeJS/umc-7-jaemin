@@ -1,4 +1,6 @@
 import { checkMissionOngoing, addUserMission } from '../repositories/userMission.repository.js';
+import { getUserMissionsByStatus } from "../repositories/userMission.repository.js";
+import { responseFromUserMissions } from '../dtos/userMission.dto.js';
 
 export const startMission = async (missionData) => {
   const { userId, missionId } = missionData;
@@ -8,4 +10,9 @@ export const startMission = async (missionData) => {
   }
   const beginningMissionId = await addUserMission(missionData);
   return { beginningMissionId };
+};
+
+export const listUserMissions = async (userId, status, cursor = 0) => {
+  const userMissions = await getUserMissionsByStatus(userId, status, cursor);
+  return responseFromUserMissions(userMissions);
 };
