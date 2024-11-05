@@ -28,6 +28,5 @@ export const getAllUserReviews = async (userId, cursor) => {
     orderBy: { id: "asc" },
     take: 3,
   });
-
   return reviews;
 };
