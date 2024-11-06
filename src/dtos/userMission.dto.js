@@ -6,3 +6,12 @@ export const bodyToUserMission = (body) => {
     deadline: body.deadline
   }
 }
+
+export const responseFromUserMissions = (userMissions) => {
+  return {
+    data: userMissions,
+    pagination: {
+      cursor: userMissions.length ? userMissions[userMissions.length - 1].id : null,
+    },
+  };
+};
