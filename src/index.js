@@ -6,6 +6,7 @@ import { handleAddRestaurant } from "./controllers/restaurant.controller.js";
 import { handleAddReview } from "./controllers/review.controller.js";
 import { handleAddMission } from "./controllers/mission.controller.js";
 import { handleStartMission } from "./controllers/userMission.controller.js";
+import { handleListUserReviews } from "./controllers/user.controller.js";
 import { handleListStoreReviews, handleListStoreMissions } from "./controllers/restaurant.controller.js";
 import { handleListUserMissions } from "./controllers/userMission.controller.js";
 
@@ -30,6 +31,7 @@ app.post("/api/v1/reviews", handleAddReview);
 app.post("/api/v1/missions", handleAddMission);
 app.post("/api/v1/user-missions", handleStartMission);
 app.get("/api/v1/stores/:storeId/reviews", handleListStoreReviews);
+app.get("/api/v1/users/:userId/reviews", handleListUserReviews);
 app.get("/api/v1/users/:userId/user-missions", handleListUserMissions);
 app.get("/api/v1/stores/:storeId/missions", handleListStoreMissions);
 
