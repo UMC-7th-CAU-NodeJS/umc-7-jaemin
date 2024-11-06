@@ -12,9 +12,10 @@ export const bodyToUser = (body) => {
       preferences: body.preferences,
     };
   };
-  
+
+  //일단 옵셔널 체이닝(?.)과 기본값 설정(|| [])을 통해 처리
 export const responseFromUser = ({ user, userFavorCategories }) => {
-  const preferFoods = userFavorCategories.map(
+  const preferFoods = (userFavorCategories || []).map(
     ({ food }) => food?.name ?? "Unknown Food"
   );
 

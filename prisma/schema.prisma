@@ -10,21 +10,21 @@ datasource db {
 model User {
   id              Int             @id @default(autoincrement())
   email           String          @unique @db.VarChar(20)
-  password        String          @db.VarChar(15)
-  nickname        String          @db.VarChar(10)
-  username        String          @db.VarChar(10)
+  password        String?         @db.VarChar(15)
+  nickname        String?         @db.VarChar(10)
+  name            String          @map("username") @db.VarChar(10)
   gender          String          @db.VarChar(10)
   birth           DateTime        @map("birthdate") @db.Date
   address         String          @db.VarChar(30)
   detailAddress   String          @map("detail_address") @db.VarChar(50)
   phoneNumber     String          @map("phone_num") @db.VarChar(20)
-  preferences     String?          @db.VarChar(15)
-  score           Int
-  currentRegionId Int             @map("current_region")
-  status          String?          @db.VarChar(10)
-  inactiveDate    DateTime?        @map("inactive_date")
-  createdAt       DateTime        @map("created_at") @default(now()) @db.DateTime
-  updatedAt       DateTime        @map("updated_at") @db.DateTime
+  preferences     String?         @db.VarChar(15)
+  score           Int?
+  currentRegionId Int?            @map("current_region")
+  status          String?         @db.VarChar(10)
+  inactiveDate    DateTime?       @map("inactive_date")
+  createdAt       DateTime?       @map("created_at") @default(now()) @db.DateTime
+  updatedAt       DateTime?       @map("updated_at") @db.DateTime
 
   reviews         Review[]
   userFavorCategories UserFood[]
@@ -49,7 +49,7 @@ model UserFood {
   userId   Int    @map("user_id")
   foodId   Int    @map("food_id")
   createdAt DateTime @map("created_at") @default(now()) @db.DateTime
-  updatedAt DateTime @map("updated_at") @db.DateTime
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime
 
   user     User    @relation(fields: [userId], references: [id])
   food     Food    @relation(fields: [foodId], references: [id])
