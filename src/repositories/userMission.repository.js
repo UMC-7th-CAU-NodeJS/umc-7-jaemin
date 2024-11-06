@@ -22,3 +22,14 @@ export const addUserMission = async (data) => {
   });
   return createdUserMission.id;
 };
+
+export const getUserMissionsByStatus = async (userId, status, cursor) => {
+  const userMissions = await prisma.userMission.findMany({
+    select: { id: true, status: true, missionId: true, userId: true, deadline: true },
+    where: { userId: userId, status: status, id: { gt: cursor } },
+    orderBy: { id: "asc" },
+    take: 3,
+  });
+
+  return userMissions;
+}; 
