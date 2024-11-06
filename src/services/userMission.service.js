@@ -1,5 +1,6 @@
 import { checkMissionOngoing, addUserMission } from '../repositories/userMission.repository.js';
-import { updateMissionStatus } from "../repositories/userMission.repository.js";
+import { getUserMissionsByStatus, updateMissionStatus } from "../repositories/userMission.repository.js";
+import { responseFromUserMissions } from '../dtos/userMission.dto.js';
 
 export const startMission = async (missionData) => {
   const { userId, missionId } = missionData;
@@ -13,4 +14,9 @@ export const startMission = async (missionData) => {
 
 export const completeMission = async (userId, missionId) => {
   return await updateMissionStatus(userId, missionId, "진행 완료");
+};
+
+export const listUserMissions = async (userId, status, cursor = 0) => {
+  const userMissions = await getUserMissionsByStatus(userId, status, cursor);
+  return responseFromUserMissions(userMissions);
 };

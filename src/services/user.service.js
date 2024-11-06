@@ -4,7 +4,10 @@ import {
   getUser,
   getUserPreferencesByUserId,
   setPreference,
+  getAllUserReviews
 } from "../repositories/user.repository.js";
+import { responseFromReviews } from '../dtos/review.dto.js';
+
 
 export const userSignUp = async (data) => {
   const joinUserId = await addUser({
@@ -29,4 +32,9 @@ export const userSignUp = async (data) => {
   const preferences = await getUserPreferencesByUserId(joinUserId);
 
   return responseFromUser({ user, preferences });
+};
+
+export const listUserReviews = async (userId, cursor = 0) => {
+  const reviews = await getAllUserReviews(userId,cursor);
+  return responseFromReviews(reviews);
 };

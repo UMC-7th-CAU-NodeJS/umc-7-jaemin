@@ -54,3 +54,24 @@ export const getAllStoreReviews = async (restaurantId, cursor) => {
 
   return reviews;
 }; 
+
+export const getAllUserReviews = async (userId, cursor) => {
+  const reviews = await prisma.review.findMany({
+    select: { id: true, content: true, restaurantId: true, userId: true },
+    where: { userId: userId, id: { gt: cursor } },
+    orderBy: { id: "asc" },
+    take: 3,
+  });
+  return reviews;
+};
+
+export const getAllStoreMissions = async (restaurantId, cursor) => {
+  const missions = await prisma.mission.findMany({
+    select: { id: true, description: true, restaurantId: true, score: true },
+    where: { restaurantId: restaurantId, id: { gt: cursor } },
+    orderBy: { id: "asc" },
+    take: 3,
+  });
+
+  return missions;
+}; 
