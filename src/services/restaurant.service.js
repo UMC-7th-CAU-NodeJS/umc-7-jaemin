@@ -1,6 +1,7 @@
 import { createRestaurant } from '../repositories/restaurant.repository.js';
 import { getAllStoreReviews, getAllStoreMissions } from '../repositories/user.repository.js';
-import { responseFromReviews, responseFromMissions } from '../dtos/restaurant.dto.js';
+import { responseFromReviews, responseFromMissions, responseFromRestaurant } from '../dtos/restaurant.dto.js';
+import { getRestaurant } from '../repositories/restaurant.repository.js';
 
 export const addRestaurant = async (data) => {
     const restaurantId = await createRestaurant({
@@ -9,6 +10,8 @@ export const addRestaurant = async (data) => {
       address: data.address,
       currentRegion: data.currentRegion
     });
+    const restaurant = await getRestaurant(restaurantId);
+    return responseFromRestaurant(restaurant)
   }
 
 export const listStoreReviews = async (restaurantId, cursor = 0) => {

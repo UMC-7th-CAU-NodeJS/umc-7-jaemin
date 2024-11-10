@@ -11,4 +11,10 @@ export const createRestaurant = async (data) => {
   });
   return createdRestaurant.id;
 };
-  
+
+export const getRestaurant = async (restaurantId) => {
+  const restaurant = await prisma.restaurant.findFirstOrThrow({
+    where: { id: restaurantId }
+  });
+  return restaurant;
+}

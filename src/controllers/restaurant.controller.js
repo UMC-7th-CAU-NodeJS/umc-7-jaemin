@@ -8,7 +8,7 @@ export const handleAddRestaurant = async (req, res, next) => {
     console.log("body:", req.body); 
     
     const restaurant = await addRestaurant(bodyToRestaurant(req.body));
-    res.status(StatusCodes.OK).json({ result: restaurant });
+    res.status(StatusCodes.OK).success(restaurant);
   };
 
 export const handleListStoreReviews = async (req, res, next) => {
