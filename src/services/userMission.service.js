@@ -17,7 +17,8 @@ export const startMission = async (missionData) => {
 };
 
 export const completeMission = async (userId, missionId) => {
-  return await updateMissionStatus(userId, missionId, "진행 완료");
+  await updateMissionStatus(userId, missionId, "진행 완료");
+  return responseFromUserMissions(await getUserMission(userId, missionId));
 };
 
 export const listUserMissions = async (userId, status, cursor = 0) => {
