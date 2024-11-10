@@ -16,4 +16,15 @@ export class MissionAlreadyOngoingError extends Error {
     this.reason = reason;
     this.data = data;
   }
+}
+
+export class NoRestaurant extends Error {
+  errorCode = "R001";
+  
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
   }
+}
+  

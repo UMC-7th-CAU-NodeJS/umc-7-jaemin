@@ -24,10 +24,10 @@ export const addUserMission = async (data) => {
 };
 
 
-export const updateMissionStatus = async (userId, missionId, status) => {
+export const updateMissionStatusToComplete = async (userId, missionId) => {
   return await prisma.userMission.updateMany({
     where: { userId, missionId, status: "진행 중" }, 
-    data: { status },
+    data: { status: "진행 완료" }
   });
 };
 
