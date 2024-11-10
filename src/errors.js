@@ -7,3 +7,13 @@ export class DuplicateUserEmailError extends Error {
       this.data = data;
     }
   }
+
+export class MissionAlreadyOngoingError extends Error {
+  errorCode = "M001";
+  
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+  }

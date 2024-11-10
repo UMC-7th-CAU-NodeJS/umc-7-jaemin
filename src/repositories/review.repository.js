@@ -21,3 +21,9 @@ export const createReview = async (data) => {
   return createdReview.id; 
 };
 
+export const getReview = async (reviewId) => {
+  const review = await prisma.review.findFirstOrThrow({
+    where: { id: reviewId }
+  });
+  return review;
+}

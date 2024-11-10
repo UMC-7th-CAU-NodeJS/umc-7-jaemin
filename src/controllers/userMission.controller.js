@@ -8,7 +8,7 @@ export const handleStartMission = async (req, res) => {
   console.log("body:", req.body);
 
   const userMission = await startMission(bodyToUserMission(req.body));
-  res.status(StatusCodes.OK).json({ result: userMission });
+  res.status(StatusCodes.OK).success(userMission);
 };
 
 export const handleCompleteUserMission = async (req, res, next) => {

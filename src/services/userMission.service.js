@@ -1,15 +1,19 @@
 import { checkMissionOngoing, addUserMission } from '../repositories/userMission.repository.js';
-import { getUserMissionsByStatus, updateMissionStatus } from "../repositories/userMission.repository.js";
+import { getUserMissionsByStatus, getUserMission, updateMissionStatus } from "../repositories/userMission.repository.js";
 import { responseFromUserMissions } from '../dtos/userMission.dto.js';
+import { MissionAlreadyOngoingError } from '../errors.js';
 
 export const startMission = async (missionData) => {
   const { userId, missionId } = missionData;
   const check = await checkMissionOngoing(userId, missionId);
-  if (check) {
-      throw new Error("이미 도전 중인 미션입니다.");
-  }
+
   const beginningMissionId = await addUserMission(missionData);
-  return { beginningMissionId };
+  const userMission = await getUserMission(userId, beginningMissionId);
+  if (check) {
+    throw new MissionAlreadyOngoingError("이미 도전 중인 미션입니다.", userMission);
+  }
+  
+  return responseFromUserMissions(userMission);
 };
 
 export const completeMission = async (userId, missionId) => {

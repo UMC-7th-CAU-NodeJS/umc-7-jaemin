@@ -42,3 +42,9 @@ export const getUserMissionsByStatus = async (userId, status, cursor) => {
   return userMissions;
 }; 
 
+export const getUserMission = async (userId, missionId) => {
+  const userMission = await prisma.userMission.findFirst({
+    where: { userId, missionId }
+  });
+  return userMission;
+}

@@ -10,3 +10,10 @@ export const createMission = async (data) => {
   });
   return createdMission.id;
 };
+
+export const getMission = async (missionId) => {
+  const mission = await prisma.mission.findFirstOrThrow({
+    where: { id: missionId }
+  });
+  return mission;
+}

@@ -1,5 +1,6 @@
 import { createReview, checkRestaurantExists } from '../repositories/review.repository.js';
-
+import { getReview } from '../repositories/review.repository.js';
+import { responseFromReviews } from '../dtos/review.dto.js';
 
 export const addReview = async (data) => {
   const exists = await checkRestaurantExists(data.restaurantId);
@@ -12,6 +13,8 @@ export const addReview = async (data) => {
     rate: data.rate,
     content: data.content
   });
-  
+
+  const review = await getReview(reviewId);
+  return responseFromReviews(review);
 };
 
