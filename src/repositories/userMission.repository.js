@@ -20,7 +20,7 @@ export const addUserMission = async (data) => {
       deadline: new Date(data.deadline) // Assuming 'deadline' is a valid date string
     }
   });
-  return createdUserMission.id;
+  return createdUserMission;
 };
 
 
