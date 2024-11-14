@@ -9,7 +9,7 @@ export const startMission = async (missionData) => {
 
   const userMission = await addUserMission(missionData);
   if (check) {
-    throw new MissionAlreadyOngoingError("이미 도전 중인 미션입니다.", userMission);
+    throw new MissionAlreadyOngoingError(userMission);
   }
   
   return responseFromUserMissions([userMission]);
