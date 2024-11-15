@@ -11,6 +11,17 @@ export const checkMissionOngoing = async (userId, missionId) => {
   return count > 0;
 };
 
+export const checkMisssionCompleted = async (userId, missionId) => {
+  const count = await prisma.userMission.count({
+    where: {
+      userId: userId,
+      missionId: missionId,
+      status: '진행 완료'
+    }
+  });
+  return count > 0;
+}
+
 export const addUserMission = async (data) => {
   const createdUserMission = await prisma.userMission.create({
     data: {

@@ -18,3 +18,10 @@ export const getRestaurant = async (restaurantId) => {
   });
   return restaurant;
 }
+
+export const checkRestaurantExists = async (restaurantId) => {
+  const count = await prisma.restaurant.count({
+    where: { id: restaurantId }
+  });
+  return count > 0;
+}

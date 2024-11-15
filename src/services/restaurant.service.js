@@ -3,15 +3,19 @@ import { getAllStoreReviews, getAllStoreMissions } from '../repositories/user.re
 import { responseFromReviews, responseFromMissions, responseFromRestaurant } from '../dtos/restaurant.dto.js';
 import { getRestaurant } from '../repositories/restaurant.repository.js';
 import { checkRestaurantExists } from '../repositories/review.repository.js';
-import { RestaurantNotExistError } from '../errors.js';
+import { ResataurantAlreadyExistError, RestaurantNotExistError } from '../errors.js';
 
 export const addRestaurant = async (data) => {
-    const restaurantId = await createRestaurant({
+    const restaurantId = await createRestaurant({ // restaurantId가 아니라 restaurantData로 수정해야 할 듯
       name: data.name,
       type: data.type,
       address: data.address,
       currentRegion: data.currentRegion
     });
+    const exists = await checkRestaurantExists(restaurantId);
+    if (exists) {
+      throw new ResataurantAlreadyExistError("식당이 이미 존재합니다.", restaurantId);
+    }
     const restaurant = await getRestaurant(restaurantId);
     return responseFromRestaurant(restaurant)
   }

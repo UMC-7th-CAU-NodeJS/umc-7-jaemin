@@ -1,9 +1,8 @@
 export class DuplicateUserEmailError extends Error {
     errorCode = "U001";
   
-    constructor(reason = "이미 존재하는 이메일입니다.", data) {
+    constructor(reason, data) {
       super(reason);
-      this.reason = reason;
       this.data = data;
     }
   }
@@ -22,7 +21,7 @@ export class UserNotFoundDBError extends Error {
 export class MissionAlreadyOngoingError extends Error {
   errorCode = "M001";
   
-  constructor(reason = "이미 도전 중인 미션입니다.", data) {
+  constructor(reason, data) {
     super(reason);
     this.reason = reason;
     this.data = data;
@@ -39,9 +38,39 @@ export class MissionNotFoundDBError extends Error {
   }
 }
 
+export class MissionAlreadyCompletedError extends Error {
+  errorCode = "M003";
+
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class MissionAlreadyExistError extends Error {
+  errorCode = "M004";
+
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
 export class RestaurantNotExistError extends Error {
   errorCode = "R001";
   
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class ResataurantAlreadyExistError extends Error {
+  errorCode = "R002";
+
   constructor(reason, data) {
     super(reason);
     this.reason = reason;

@@ -22,7 +22,7 @@ export const userSignUp = async (data) => {
   });
 
   if (joinUserId === null) {
-    throw new DuplicateUserEmailError(data);
+    throw new DuplicateUserEmailError("이미 존재하는 이메일입니다.", data);
   }
 
   for (const preference of data.preferences) {
@@ -35,7 +35,7 @@ export const userSignUp = async (data) => {
   return responseFromUser({ user, preferences });
 };
 
-export const listUserReviews = async (userId, cursor = 0) => {
+export const listUserReviews = async (userId, cursor) => {
   const reviews = await getAllUserReviews(userId,cursor);
   return responseFromReviews(reviews);
 };
