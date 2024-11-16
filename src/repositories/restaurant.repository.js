@@ -19,9 +19,14 @@ export const getRestaurant = async (restaurantId) => {
   return restaurant;
 }
 
-export const checkRestaurantExists = async (restaurantId) => {
+export const checkRestaurantExists = async (data) => {
   const count = await prisma.restaurant.count({
-    where: { id: restaurantId }
+    where: {
+      name: data.name,
+      type: data.type,
+      address: data.address,
+      currentRegionId: data.currentRegion
+    }
   });
   return count > 0;
 }
