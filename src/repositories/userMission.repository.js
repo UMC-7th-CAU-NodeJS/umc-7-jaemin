@@ -11,6 +11,17 @@ export const checkMissionOngoing = async (userId, missionId) => {
   return count > 0;
 };
 
+export const checkMisssionCompleted = async (userId, missionId) => {
+  const count = await prisma.userMission.count({
+    where: {
+      userId: userId,
+      missionId: missionId,
+      status: '진행 완료'
+    }
+  });
+  return count > 0;
+}
+
 export const addUserMission = async (data) => {
   const createdUserMission = await prisma.userMission.create({
     data: {
@@ -20,14 +31,14 @@ export const addUserMission = async (data) => {
       deadline: new Date(data.deadline) // Assuming 'deadline' is a valid date string
     }
   });
-  return createdUserMission.id;
+  return createdUserMission;
 };
 
 
-export const updateMissionStatus = async (userId, missionId, status) => {
+export const updateMissionStatusToComplete = async (userId, missionId) => {
   return await prisma.userMission.updateMany({
     where: { userId, missionId, status: "진행 중" }, 
-    data: { status },
+    data: { status: "진행 완료" }
   });
 };
 
@@ -42,3 +53,9 @@ export const getUserMissionsByStatus = async (userId, status, cursor) => {
   return userMissions;
 }; 
 
+export const getUserMission = async (userId, missionId) => {
+  const userMission = await prisma.userMission.findFirst({
+    where: { userId, missionId }
+  });
+  return userMission;
+}

@@ -8,6 +8,15 @@ export const bodyToRestaurant = (body) => {
     }
   }
 
+export const responseFromRestaurant = (restaurant) => {
+  return {
+    name: restaurant.name,
+    type: restaurant.type,
+    address: restaurant.address,
+    currentRegion: restaurant.currentRegion
+  };
+};
+
 export const responseFromReviews = (reviews) => {
   return {
     data: reviews,

@@ -7,6 +7,6 @@ export const handleAddReview = async (req, res, next) => {
   console.log("body:", req.body);
 
   const review = await addReview(bodyToReview(req.body));
-  res.status(StatusCodes.OK).json({ result: review });
+  res.status(StatusCodes.OK).success(review);
 };
 

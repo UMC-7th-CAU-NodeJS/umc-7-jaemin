@@ -1,10 +1,12 @@
 import { createReview, checkRestaurantExists } from '../repositories/review.repository.js';
-
+import { getReview } from '../repositories/review.repository.js';
+import { responseFromReviews } from '../dtos/review.dto.js';
+import { RestaurantNotExistError } from '../errors.js';
 
 export const addReview = async (data) => {
   const exists = await checkRestaurantExists(data.restaurantId);
   if (!exists) {
-    throw new Error("리뷰를 추가하려는 가게가 존재하지 않습니다.");
+    throw new RestaurantNotExistError("리뷰를 추가하려는 가게가 존재하지 않습니다.", data.restaurantId);
   }
   const reviewId = await createReview({
     restaurantId: data.restaurantId,
@@ -12,6 +14,8 @@ export const addReview = async (data) => {
     rate: data.rate,
     content: data.content
   });
-  
+
+  const review = await getReview(reviewId);
+  return responseFromReviews(review);
 };
 

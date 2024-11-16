@@ -35,7 +35,7 @@ export const userSignUp = async (data) => {
   return responseFromUser({ user, preferences });
 };
 
-export const listUserReviews = async (userId, cursor = 0) => {
+export const listUserReviews = async (userId, cursor) => {
   const reviews = await getAllUserReviews(userId,cursor);
   return responseFromReviews(reviews);
 };

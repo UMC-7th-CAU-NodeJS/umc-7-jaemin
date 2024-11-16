@@ -8,14 +8,14 @@ export const handleStartMission = async (req, res) => {
   console.log("body:", req.body);
 
   const userMission = await startMission(bodyToUserMission(req.body));
-  res.status(StatusCodes.OK).json({ result: userMission });
+  res.status(StatusCodes.OK).success(userMission);
 };
 
 export const handleCompleteUserMission = async (req, res, next) => {
   const userId = parseInt(req.params.userId);
   const missionId = parseInt(req.params.missionId);
   const updatedMission = await completeMission(userId, missionId);
-  res.status(StatusCodes.OK).json({ data: updatedMission });
+  res.status(StatusCodes.OK).success(updatedMission);
 };
 
 export const handleListUserMissions = async (req, res, next) => {
@@ -24,5 +24,5 @@ export const handleListUserMissions = async (req, res, next) => {
   const cursor = typeof req.query.cursor === "string" ? parseInt(req.query.cursor) : 0;
 
   const userMissions = await listUserMissions(userId, status, cursor);
-  res.status(200).json({ data: userMissions });
+  res.status(StatusCodes.OK).success(userMissions);
 };

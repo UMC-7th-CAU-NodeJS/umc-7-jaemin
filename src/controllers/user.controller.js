@@ -17,5 +17,5 @@ export const handleListUserReviews = async (req, res, next) => {
     parseInt(req.params.userId),
     typeof req.query.cursor === "string" ? parseInt(req.query.cursor) : 0
   );
-  res.status(200).json({ data: reviews });
+  res.status(StatusCodes.OK).success(reviews);
 };
