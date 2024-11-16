@@ -79,9 +79,9 @@ export const handleAddRestaurant = async (req, res, next) => {
 
 export const handleListStoreReviews = async (req, res, next) => {
   /*
-    #swagger.summary = '상점 리뷰 목록 조회 API';
+    #swagger.summary = '식당별 리뷰 목록 조회 API';
     #swagger.responses[200] = {
-      description: "상점 리뷰 목록 조회 성공 응답",
+      description: "식당별 리뷰 목록 조회 성공 응답",
       content: {
         "application/json": {
           schema: {
@@ -123,9 +123,9 @@ export const handleListStoreReviews = async (req, res, next) => {
  
 export const handleListStoreMissions = async (req, res, next) => {
   /*
-    #swagger.summary = '상점 미션 목록 조회 API';
+    #swagger.summary = '식당별 미션 목록 조회 API';
     #swagger.responses[200] = {
-      description: "상점 미션 목록 조회 성공 응답",
+      description: "식당별 미션 목록 조회 성공 응답",
       content: {
         "application/json": {
           schema: {
