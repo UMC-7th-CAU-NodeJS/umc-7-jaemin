@@ -1,13 +1,5 @@
 import { prisma } from '../db.config.js';
 
-export const checkRestaurantExists = async (restaurantId) => {
-  const count = await prisma.restaurant.count({
-    where: {
-      id: restaurantId
-    }
-  });
-  return count > 0;
-};
 
 export const createReview = async (data) => {
   const createdReview = await prisma.review.create({

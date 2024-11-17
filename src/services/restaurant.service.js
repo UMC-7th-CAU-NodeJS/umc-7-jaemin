@@ -3,8 +3,7 @@ import { getAllStoreReviews, getAllStoreMissions } from '../repositories/user.re
 import { responseFromRestaurant } from '../dtos/restaurant.dto.js';
 import { responseFromReviews } from '../dtos/review.dto.js';
 import { responseFromMissions } from '../dtos/mission.dto.js';
-import { getRestaurant } from '../repositories/restaurant.repository.js';
-import { checkRestaurantExists } from '../repositories/review.repository.js';
+import { getRestaurant, checkRestaurantExists } from '../repositories/restaurant.repository.js';
 import { ResataurantAlreadyExistError, RestaurantNotExistError } from '../errors.js';
 
 export const addRestaurant = async (data) => {

@@ -1,5 +1,5 @@
-import { createReview, checkRestaurantExists } from '../repositories/review.repository.js';
-import { getReview } from '../repositories/review.repository.js';
+import { createReview, getReview } from '../repositories/review.repository.js';
+import { checkRestaurantExists } from '../repositories/restaurant.repository.js';
 import { responseFromReviews } from '../dtos/review.dto.js';
 import { RestaurantNotExistError } from '../errors.js';
 

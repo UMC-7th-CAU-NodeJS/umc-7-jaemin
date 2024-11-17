@@ -1,7 +1,7 @@
 import { createMission } from "../repositories/mission.repository.js";
 import { getMission, checkMissionExists } from "../repositories/mission.repository.js";
 import { responseFromMissions } from "../dtos/mission.dto.js";
-import { checkRestaurantExists } from "../repositories/review.repository.js";
+import { checkRestaurantExists } from "../repositories/restaurant.repository.js";
 import { RestaurantNotExistError, MissionAlreadyExistError } from "../errors.js";
 
 export const addMission = async (data) => {
