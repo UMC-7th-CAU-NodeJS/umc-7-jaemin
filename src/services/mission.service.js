@@ -3,6 +3,7 @@ import { getMission, checkMissionExists } from "../repositories/mission.reposito
 import { responseFromMissions } from "../dtos/mission.dto.js";
 import { checkRestaurantExists } from "../repositories/restaurant.repository.js";
 import { RestaurantNotExistError, MissionAlreadyExistError } from "../errors.js";
+import { getAllStoreMissions } from "../repositories/mission.repository.js";
 
 export const addMission = async (data) => {
     const restaurantExists = await checkRestaurantExists(data.restaurantId);
@@ -23,3 +24,12 @@ export const addMission = async (data) => {
     const mission = await getMission(missionId);
     return responseFromMissions(mission);
   }
+
+  export const listStoreMissions = async (restaurantId, cursor = 0) => {
+    const exists = await checkRestaurantExists(restaurantId);
+    if (!exists) {
+      throw new RestaurantNotExistError("미션을 조회하려는 가게가 존재하지 않습니다.", restaurantId);
+    }
+    const missions = await getAllStoreMissions(restaurantId,cursor);
+    return responseFromMissions(missions);
+  };

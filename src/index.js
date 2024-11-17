@@ -5,11 +5,10 @@ import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 import { handleUserSignUp } from "./controllers/user.controller.js";
 import { handleAddRestaurant } from "./controllers/restaurant.controller.js"; 
-import { handleAddReview } from "./controllers/review.controller.js";
-import { handleAddMission } from "./controllers/mission.controller.js";
+import { handleAddReview, handleListStoreReviews } from "./controllers/review.controller.js";
+import { handleAddMission, handleListStoreMissions } from "./controllers/mission.controller.js";
 import { handleStartMission } from "./controllers/userMission.controller.js";
 import { handleListUserReviews } from "./controllers/user.controller.js";
-import { handleListStoreReviews, handleListStoreMissions } from "./controllers/restaurant.controller.js";
 import { handleListUserMissions } from "./controllers/userMission.controller.js";
 import { handleCompleteUserMission } from "./controllers/userMission.controller.js";
 

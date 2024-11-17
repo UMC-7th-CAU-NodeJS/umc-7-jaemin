@@ -19,3 +19,15 @@ export const getReview = async (reviewId) => {
   });
   return review;
 }
+
+export const getAllStoreReviews = async (restaurantId, cursor) => {
+  const reviews = await prisma.review.findMany({
+    select: { id: true, content: true, restaurantId: true, userId: true },
+    where: { restaurantId: restaurantId, id: { gt: cursor } },
+    orderBy: { id: "asc" },
+    take: 3,
+  });
+
+  return reviews;
+}; 
+
