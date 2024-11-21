@@ -46,27 +46,6 @@ export const handleAddReview = async (req, res, next) => {
         }
       }
     };
-    #swagger.responses[400] = {
-      description: "리뷰 작성 실패 응답",
-      content: {
-        "application/json": {
-          schema: {
-            type: "object",
-            properties: {
-              resultType: { type: "string", example: "FAIL" },
-              error: {
-                type: "object",
-                properties: {
-                  errorCode: { type: "string", example: "RV001" },
-                  reason: { type: "string", example: "리뷰 작성 실패" }
-                }
-              },
-              success: { type: "object", nullable: true, example: null }
-            }
-          }
-        }
-      }
-    };
   */
   console.log("리뷰 추가를 요청했습니다!");
   console.log("body:", req.body);

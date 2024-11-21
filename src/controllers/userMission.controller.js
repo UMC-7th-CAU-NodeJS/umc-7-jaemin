@@ -121,43 +121,42 @@ export const handleCompleteUserMission = async (req, res, next) => {
 };
 
 export const handleListUserMissions = async (req, res, next) => {
-  /*
-    #swagger.summary = '진행 중인 미션 목록 조회 API';
-    #swagger.responses[200] = {
-      description: "진행 중인 미션 목록 조회 성공 응답",
-      content: {
-        "application/json": {
-          schema: {
-            type: "object",
-            properties: {
-              resultType: { type: "string", example: "SUCCESS" },
-              error: { type: "object", nullable: true, example: null },
-              success: {
-                type: "object",
-                properties: {
-                  data: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        id: { type: "integer" },
-                        status: { type: "string" },
-                        missionId: { type: "integer" },
-                        userId: { type: "integer" },
-                        deadline: { type: "string", format: "date"
-                      }
+/*
+  #swagger.summary = '진행 중인 미션 목록 조회 API'
+  #swagger.responses[200] = {
+    description: "진행 중인 미션 목록 조회 성공 응답",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+          properties: {
+            resultType: { type: "string", example: "SUCCESS" },
+            error: { type: "object", nullable: true, example: null },
+            success: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: { type: "integer" },
+                      status: { type: "string" },
+                      missionId: { type: "integer" },
+                      userId: { type: "integer" },
+                      deadline: { type: "string", format: "date" }
                     }
-                  },
-                  pagination: { type: "object", properties: { cursor: { type: "number", nullable: true } }}
-                }
+                  }
+                },
+                pagination: { type: "object", properties: { cursor: { type: "number", nullable: true } }}
               }
             }
           }
         }
       }
-    };
-  */
-
+    }
+  };
+*/
   const userId = parseInt(req.params.userId);
   const status = req.query.status;
   const cursor = typeof req.query.cursor === "string" ? parseInt(req.query.cursor) : 0;
