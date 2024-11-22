@@ -5,6 +5,7 @@ import { completeMission, listUserMissions } from "../services/userMission.servi
 
 export const handleStartMission = async (req, res) => {
 /*
+    #swagger.tags = ['미션 관련'];
     #swagger.summary = '미션 도전 API';
     #swagger.requestBody = {
       required: true,
@@ -75,6 +76,7 @@ export const handleStartMission = async (req, res) => {
 
 export const handleCompleteUserMission = async (req, res, next) => {
 /*
+    #swagger.tags = ['미션 관련'];
     #swagger.summary = '미션 완료 API';
     #swagger.responses[200] = {
       description: "미션 완료 성공 응답",
@@ -122,6 +124,7 @@ export const handleCompleteUserMission = async (req, res, next) => {
 
 export const handleListUserMissions = async (req, res, next) => {
 /*
+  #swagger.tags = ['미션 관련'];
   #swagger.summary = '진행 중인 미션 목록 조회 API'
   #swagger.responses[200] = {
     description: "진행 중인 미션 목록 조회 성공 응답",

@@ -5,6 +5,7 @@ import { listUserReviews } from "../services/user.service.js";
 
 export const handleUserSignUp = async (req, res, next) => {
   /*
+    #swagger.tags = ['사용자 관련'];
     #swagger.summary = '회원 가입 API';
     #swagger.requestBody = {
       required: true,
@@ -81,6 +82,7 @@ export const handleUserSignUp = async (req, res, next) => {
 
 export const handleListUserReviews = async (req, res, next) => {
   /*
+    #swagger.tags = ['리뷰 관련'];
     #swagger.summary = '사용자 리뷰 목록 조회 API';
     #swagger.responses[200] = {
       description: "사용자 리뷰 목록 조회 성공 응답",

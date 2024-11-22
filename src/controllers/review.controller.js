@@ -5,6 +5,7 @@ import { listStoreReviews } from "../services/review.service.js";
 
 export const handleAddReview = async (req, res, next) => {
   /*
+    #swagger.tags = ['리뷰 관련'];
     #swagger.summary = '리뷰 작성 API';
     #swagger.requestBody = {
       required: true,
@@ -56,6 +57,7 @@ export const handleAddReview = async (req, res, next) => {
 
 export const handleListStoreReviews = async (req, res, next) => {
   /*
+    #swagger.tags = ['리뷰 관련'];
     #swagger.summary = '식당별 리뷰 목록 조회 API';
     #swagger.responses[200] = {
       description: "식당별 리뷰 목록 조회 성공 응답",

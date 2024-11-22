@@ -5,6 +5,7 @@ import { listStoreMissions } from "../services/mission.service.js";
 
 export const handleAddMission = async (req, res, next) => {
   /*
+    #swagger.tags = ['미션 관련'];
     #swagger.summary = '미션 추가 API';
     #swagger.requestBody = {
       required: true,
@@ -98,6 +99,7 @@ export const handleAddMission = async (req, res, next) => {
 
   export const handleListStoreMissions = async (req, res, next) => {
 /*
+  #swagger.tags = ['미션 관련'];
   #swagger.summary = '식당별 미션 목록 조회 API'
   #swagger.responses[200] = {
     description: "식당별 미션 목록 조회 성공 응답",

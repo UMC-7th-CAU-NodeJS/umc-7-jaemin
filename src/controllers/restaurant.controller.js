@@ -4,6 +4,7 @@ import { bodyToRestaurant } from "../dtos/restaurant.dto.js";
 
 export const handleAddRestaurant = async (req, res, next) => {
   /*
+    #swagger.tags = ['식당 관련'];
     #swagger.summary = '식당 추가 API';
     #swagger.requestBody = {
       required: true,
