@@ -168,3 +168,13 @@ model Inquiry {
 
   user          User           @relation(fields: [userId], references: [id])
 }
+
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.VarChar(1024)
+  expiresAt DateTime @map("expires_at")
+
+  @@map("session")
+}
