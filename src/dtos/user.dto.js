@@ -14,14 +14,13 @@ export const bodyToUser = (body) => {
   };
 
   //일단 옵셔널 체이닝(?.)과 기본값 설정(|| [])을 통해 처리
-export const responseFromUser = ({ user, userFavorCategories }) => {
-  const preferFoods = (userFavorCategories || []).map(
-    ({ food }) => food?.name ?? "Unknown Food"
-  );
+export const responseFromUser = ({ user, preferences }) => {
+  const preferFoods = preferences || [];
 
   return {
     email: user.email,
     name: user.name,
     preferCategory: preferFoods,
   };
+
 };

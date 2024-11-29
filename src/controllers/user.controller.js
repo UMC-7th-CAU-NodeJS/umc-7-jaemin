@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { bodyToUser } from "../dtos/user.dto.js";
-import { userSignUp } from "../services/user.service.js";
+import { userSignUp, updateUserInfo } from "../services/user.service.js";
 import { listUserReviews } from "../services/user.service.js";
 
 export const handleUserSignUp = async (req, res, next) => {
@@ -80,7 +80,41 @@ export const handleUserSignUp = async (req, res, next) => {
   res.status(StatusCodes.OK).success(user);
 };
 
-export const handleListUserReviews = async (req, res, next) => {
+export const patchUserInfo = async (req, res, next) => {
+  /*
+    #swagger.tags = ['사용자 관련'];
+    #swagger.summary = '사용자 정보 수정 API';
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+              gender: { type: " string" }, 
+              birth: { type: "string", format: "date" },
+              address: { type: "string" },
+              detailAddress: { type: "string" },
+              phoneNumber: { type: "string" },
+              preferences: { type: "array", items: { type: "number" } }
+            }
+          }
+        }
+      }
+    };
+    
+  */
+  const { userId } = req.params; // URL에서 사용자 ID 가져오기
+  const toBeUpdated = bodyToUser(req.body); // 요청 본문에서 업데이트 할 데이터를 가져와 User DTO로 변환
+
+  //에러 처리 필요
+  
+  const updatedUser = await updateUserInfo(userId, toBeUpdated);
+
+  res.status(StatusCodes.OK).success(updatedUser);
+}
+
+    export const handleListUserReviews = async (req, res, next) => {
   /*
     #swagger.tags = ['리뷰 관련'];
     #swagger.summary = '사용자 리뷰 목록 조회 API';

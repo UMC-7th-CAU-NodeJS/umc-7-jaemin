@@ -18,7 +18,7 @@ model User {
   address         String          @db.VarChar(30)
   detailAddress   String          @map("detail_address") @db.VarChar(50)
   phoneNumber     String          @map("phone_num") @db.VarChar(20)
-  preferences     String?         @db.VarChar(15)
+  preferences     Json?           //Json 타입으로 변경
   score           Int?
   currentRegionId Int?            @map("current_region")
   status          String?         @db.VarChar(10)

@@ -3,7 +3,7 @@
   import express from "express";
   import swaggerAutogen from "swagger-autogen";
   import swaggerUiExpress from "swagger-ui-express";
-  import { handleUserSignUp } from "./controllers/user.controller.js";
+  import { handleUserSignUp, patchUserInfo } from "./controllers/user.controller.js";
   import { handleAddRestaurant } from "./controllers/restaurant.controller.js"; 
   import { handleAddReview, handleListStoreReviews } from "./controllers/review.controller.js";
   import { handleAddMission, handleListStoreMissions } from "./controllers/mission.controller.js";
@@ -81,6 +81,7 @@
   });
 
   app.post("/api/v1/users/signup", handleUserSignUp);
+  app.patch("/api/v1/users/:userId", patchUserInfo);
   app.post("/api/v1/restaurants", handleAddRestaurant); 
   app.post("/api/v1/reviews", handleAddReview);
   app.post("/api/v1/missions", handleAddMission);
