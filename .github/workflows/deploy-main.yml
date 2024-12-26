@@ -75,6 +75,6 @@ jobs:
           ssh playground-umc-7th 'sudo systemctl daemon-reload'
           ssh playground-umc-7th 'sudo systemctl enable app'
 
-      - name: Restart systemd service
+      - name: Restart systemd service 
         run: |
           ssh playground-umc-7th 'sudo systemctl restart app'
