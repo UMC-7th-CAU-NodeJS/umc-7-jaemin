@@ -13,13 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check prisma has changes
-        uses: dorny/paths-filter@v3
-        id: paths-filter
-        with:
-          filters: |
-            prisma: ["prisma/**"]
-
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -46,13 +39,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ssh playground-umc-7th 'cd /opt/app; npm install'
-          ssh playground-umc-7th 'cd /opt/app; npm exec prisma generate'
-
-      - name: Apply prisma migrations
-        if: steps.paths-filter.outputs.prisma == 'true'
-        run: |
-          ssh playground-umc-7th 'cd /opt/app; npm exec prisma migrate deploy'
+          ssh playground-umc-7th 'npm install --prefix /opt/app/'
 
       - name: Copy systemd service file
         run: |
@@ -63,7 +50,7 @@ jobs:
 
             [Service]
             User=${USER}
-            ExecStart=/usr/bin/npm run start --prefix /opt/app/
+            ExecStart=/usr/bin/npm run dev --prefix /opt/app/
             Restart=always
 
             [Install]
